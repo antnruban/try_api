@@ -114,7 +114,8 @@ TryApiApp.controller('HomeController', [
     };
     $http.get('<%= TryApi::Engine.routes.url_helpers.projects_path %>').success(function(data) {
       $scope.project = data.project;
-      return $.each($scope.project.menu_items, function() {
+      var filtered_menu_items = $scope.project.menu_items.filter(function(e) { return e.methods !== undefined });
+      return $.each(filtered_menu_items, function() {
         var menu_item;
         menu_item = this;
         menu_item.methods.forEach(function(method) {
